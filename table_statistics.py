@@ -1,10 +1,10 @@
-# Используемые библиотеки
+#Используемые библиотеки
 import yaml
 import csv
 from collections import defaultdict
 import os
 from dotenv import load_dotenv
-# Чтение перменных из файла .env
+#Чтение перменных из файла .env
 path = r'd:\CodeRun\table_statistics\table_statistics\variables.env'
 load_dotenv(path)
 def load_yaml(file_path):
@@ -89,3 +89,6 @@ def main():
         #Подсчет обращений
         count = sum(1 for node_id in logs if node_id in target_ids)
         print(f"Количество обращений к /home/statistics и подузлам: {count}")
+#Конструкция для скрипта
+if __name__ == "__main__":
+    main()
