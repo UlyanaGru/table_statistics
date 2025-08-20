@@ -4,13 +4,16 @@ import csv
 from collections import defaultdict
 import os
 from dotenv import load_dotenv
+
 #Чтение перменных из файла .env
 path = r'd:\CodeRun\table_statistics\table_statistics\variables.env'
+
 load_dotenv(path)
 def load_yaml(file_path):
     '''Функция для чтения .yaml'''
     with open(file_path, 'r') as file:
         return yaml.safe_load(file)
+    
 def load_logs(file_path):
     '''Функция для чтения .csv'''
     logs = []
@@ -19,11 +22,13 @@ def load_logs(file_path):
         for row in reader:
             logs.append(row['node_id'])
     return logs
+
 def find_statistics_nodes(folders):
     '''Функция для поиска по узлу'''
     #Мноежство для хранения результатов
     statistics_nodes = set()
     #Функция для проверки текущей ссылки на link
+
     def traverse(node):
         if 'link' in node:
             return
@@ -37,6 +42,7 @@ def find_statistics_nodes(folders):
     for key, node in folders.items():
         traverse(node)
     return statistics_nodes
+
 def get_all_node_ids(node):
     '''Функция для получения id узла'''
     node_ids = set()
@@ -51,6 +57,7 @@ def get_all_node_ids(node):
                 collect_ids(child)
     collect_ids(node)
     return node_ids
+
 def main():
     # Считывание нахождения в директории
     file_path_yaml = os.getenv("file_path_yaml")
@@ -60,6 +67,7 @@ def main():
     #Идентификаторы узлов statistics
     home_statistics_id = '9cae29'
     tmp_statistics_id = '82cc0d'
+
     def get_all_node_ids(node):
         """Рекурсивно собирает все ID узлов в поддереве"""
         node_ids = set()
@@ -68,6 +76,7 @@ def main():
                 node_ids.add(key)
                 node_ids.update(get_all_node_ids(child))
         return node_ids
+    
     def find_statistics_node(folders, target_id):
         """Находит узел statistics по его ID"""
         for key, node in folders.items():
@@ -89,6 +98,7 @@ def main():
         #Подсчет обращений
         count = sum(1 for node_id in logs if node_id in target_ids)
         print(f"Количество обращений к /home/statistics и подузлам: {count}")
+        
 #Конструкция для скрипта
 if __name__ == "__main__":
     main()
