@@ -15,3 +15,24 @@ public class TableStatistics {
         Map<String, Object> data = new HashMap<>();
         return data;
     }
+    //Функция для чтения .csv
+    public static List<String> loadLogs(String filePath) throws IOException {
+        /**
+         *Функция для чтения .csv
+         *@param filePath путь к CSV файлу
+         *@return List с node_id из логов
+         */
+        List<String> logs = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line = reader.readLine(); //Читаем заголовок
+            if (line != null && line.contains("node_id")) {
+                while ((line = reader.readLine()) != null) {
+                    String[] columns = line.split(",");
+                    if (columns.length > 0) {
+                        logs.add(columns[0]); //Предполагаем, что node_id в первом столбце
+                    }
+                }
+            }
+        }
+        return logs;
+    }
