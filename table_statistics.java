@@ -95,3 +95,29 @@ public class TableStatistics {
         }
         return result;
     }
+    
+    public static void main(String[] args) {
+        try {
+            //Загрузка переменных из .env файла
+            String envPath = "d:\\CodeRun\\table_statistics\\table_statistics\\variables.env";
+            Map<String, String> envVars = new HashMap<>();
+            
+            try (BufferedReader reader = new BufferedReader(new FileReader(envPath))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.contains("=") && !line.trim().startsWith("#")) {
+                        String[] parts = line.split("=", 2);
+                        if (parts.length == 2) {
+                            envVars.put(parts[0].trim(), parts[1].trim());
+                        }
+                    }
+                }
+            }
+            
+            String filePathYaml = envVars.get("file_path_yaml");
+            String filePathCsv = envVars.get("file_path_csv");
+            
+            if (filePathYaml == null || filePathCsv == null) {
+                System.err.println("Не найдены необходимые переменные в .env файле");
+                return;
+            }
