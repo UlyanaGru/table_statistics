@@ -69,3 +69,29 @@ public class TableStatistics {
             }
         }
     }
+    
+    //Функция для преобразования Map<String, Object> в Map<String, Node>
+    @SuppressWarnings("unchecked")
+    private static Map<String, Node> convertToNodeMap(Map<String, Object> rawData) {
+        Map<String, Node> result = new HashMap<>();
+        for (Map.Entry<String, Object> entry : rawData.entrySet()) {
+            if (entry.getValue() instanceof Map) {
+                Node node = new Node();
+                Map<String, Object> nodeData = (Map<String, Object>) entry.getValue();
+                
+                if (nodeData.containsKey("name")) {
+                    node.setName(nodeData.get("name").toString());
+                }
+                if (nodeData.containsKey("link")) {
+                    node.setLink(nodeData.get("link").toString());
+                }
+                if (nodeData.containsKey("values")) {
+                    Map<String, Object> valuesData = (Map<String, Object>) nodeData.get("values");
+                    node.setValues(convertToNodeMap(valuesData));
+                }
+                
+                result.put(entry.getKey(), node);
+            }
+        }
+        return result;
+    }
