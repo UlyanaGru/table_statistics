@@ -51,4 +51,21 @@ public class TableStatistics {
             }
         }
         return null;
-    } 
+    }
+    
+    //Функция для получения всех ID узлов в поддереве
+    public static Set<String> getAllNodeIds(Node node) {
+        Set<String> nodeIds = new HashSet<>();
+        collectIds(node, nodeIds);
+        return nodeIds;
+    }
+    
+    private static void collectIds(Node node, Set<String> nodeIds) {
+        if (node == null) return;
+        if (node.getValues() != null) {
+            for (Map.Entry<String, Node> entry : node.getValues().entrySet()) {
+                nodeIds.add(entry.getKey());
+                collectIds(entry.getValue(), nodeIds);
+            }
+        }
+    }
