@@ -36,3 +36,19 @@ public class TableStatistics {
         }
         return logs;
     }
+    
+    //Функция для поиска узла statistics по ID
+    public static Node findStatisticsNode(Map<String, Node> folders, String targetId) {
+        for (Map.Entry<String, Node> entry : folders.entrySet()) {
+            if (entry.getKey().equals(targetId)) {
+                return entry.getValue();
+            }
+            if (entry.getValue().getValues() != null) {
+                Node found = findStatisticsNode(entry.getValue().getValues(), targetId);
+                if (found != null) {
+                    return found;
+                }
+            }
+        }
+        return null;
+    }
