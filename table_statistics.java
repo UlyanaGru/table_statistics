@@ -133,4 +133,17 @@ public class TableStatistics {
             //Находим узел /home/statistics
             Node statisticsNode = findStatisticsNode(folders, homeStatisticsId);
             
-            
+            if (statisticsNode == null) {
+                System.out.println("Узел 'statistics' не найден в структуре.");
+            } else {
+                //Собираем все ID узлов в поддереве statistics
+                Set<String> targetIds = getAllNodeIds(statisticsNode);
+                targetIds.add(homeStatisticsId); //Добавляем сам узел statistics
+                
+                //Подсчет обращений
+                int count = 0;
+                for (String nodeId : logs) {
+                    if (targetIds.contains(nodeId)) {
+                        count++;
+                    }
+                }
