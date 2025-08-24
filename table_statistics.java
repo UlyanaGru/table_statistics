@@ -147,3 +147,16 @@ public class TableStatistics {
                         count++;
                     }
                 }
+                
+                System.out.println("Количество обращений к /home/statistics и подузлам: " + count);
+            }
+            
+        } catch (IOException e) {
+            System.err.println("Ошибка при чтении файлов: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Общая ошибка: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
