@@ -121,3 +121,16 @@ public class TableStatistics {
                 System.err.println("Не найдены необходимые переменные в .env файле");
                 return;
             }
+            
+            //Идентификаторы узлов statistics
+            String homeStatisticsId = "9cae29";
+            
+            //Загрузка данных
+            Map<String, Object> rawData = loadYaml(filePathYaml);
+            Map<String, Node> folders = convertToNodeMap(rawData);
+            List<String> logs = loadLogs(filePathCsv);
+            
+            //Находим узел /home/statistics
+            Node statisticsNode = findStatisticsNode(folders, homeStatisticsId);
+            
+            
