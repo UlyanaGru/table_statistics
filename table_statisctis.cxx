@@ -50,3 +50,17 @@ std::vector<std::string> loadLogs(const std::string& file_path) {
     
     return logs;
 }
+
+//Рекурсивная функция для сбора всех ID узлов в поддереве
+void getAllNodeIds(const YAML::Node& node, std::unordered_set<std::string>& node_ids) {
+    if (node.IsMap()) {
+        if (node["values"]) {
+            const YAML::Node& values = node["values"];
+            for (YAML::const_iterator it = values.begin(); it != values.end(); ++it) {
+                std::string key = it->first.as<std::string>();
+                node_ids.insert(key);
+                getAllNodeIds(it->second, node_ids);
+            }
+        }
+    }
+}
