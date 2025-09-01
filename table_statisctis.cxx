@@ -87,3 +87,29 @@ const YAML::Node findStatisticsNode(const YAML::Node& node, const std::string& t
     
     return YAML::Node(); //Возвращаем пустой узел если не нашли
 }
+
+int main() {
+    //Загрузка переменных из .env файла
+    std::string env_path = "d:\\CodeRun\\table_statistics\\table_statistics\\variables.env";
+    loadEnv(env_path);
+    
+    const char* yaml_path = std::getenv("file_path_yaml");
+    const char* csv_path = std::getenv("file_path_csv");
+    
+    if (!yaml_path || !csv_path) {
+        std::cerr << "Переменные окружения не найдены" << std::endl;
+        return 1;
+    }
+    
+    try {
+        //Загрузка YAML файла
+        YAML::Node folders = YAML::LoadFile(yaml_path);
+        
+        //Загрузка CSV файла
+        std::vector<std::string> logs = loadLogs(csv_path);
+        
+        //Идентификаторы узлов statistics
+        std::string home_statistics_id = "9cae29";
+        
+        //Находим узел /home/statistics
+        const YAML::Node statistics_node = findStatisticsNode(folders, home_statistics_id);
