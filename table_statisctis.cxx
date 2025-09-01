@@ -64,3 +64,26 @@ void getAllNodeIds(const YAML::Node& node, std::unordered_set<std::string>& node
         }
     }
 }
+
+//Рекурсивная функция для поиска узла по ID
+const YAML::Node findStatisticsNode(const YAML::Node& node, const std::string& target_id) {
+    if (node.IsMap()) {
+        //Проверяем текущий узел
+        for (YAML::const_iterator it = node.begin(); it != node.end(); ++it) {
+            std::string key = it->first.as<std::string>();
+            if (key == target_id) {
+                return it->second;
+            }
+            
+            //Рекурсивно ищем в дочерних узлах
+            if (it->second.IsMap() && it->second["values"]) {
+                const YAML::Node& found = findStatisticsNode(it->second["values"], target_id);
+                if (found.IsDefined()) {
+                    return found;
+                }
+            }
+        }
+    }
+    
+    return YAML::Node(); //Возвращаем пустой узел если не нашли
+}
