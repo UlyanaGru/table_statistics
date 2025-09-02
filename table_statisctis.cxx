@@ -118,3 +118,8 @@ int main() {
             std::cout << "Узел 'statistics' не найден в структуре." << std::endl;
             return 1;
         }
+        
+        //Собираем все ID узлов в поддереве statistics
+        std::unordered_set<std::string> target_ids;
+        target_ids.insert(home_statistics_id);
+        getAllNodeIds(statistics_node, target_ids);
