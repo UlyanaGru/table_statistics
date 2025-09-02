@@ -133,3 +133,14 @@ int main() {
         }
         
         std::cout << "Количество обращений к /home/statistics и подузлам: " << count << std::endl;
+        
+    } catch (const YAML::Exception& e) {
+        std::cerr << "Ошибка при обработке YAML файла: " << e.what() << std::endl;
+        return 1;
+    } catch (const std::exception& e) {
+        std::cerr << "Ошибка: " << e.what() << std::endl;
+        return 1;
+    }
+    
+    return 0;
+}
