@@ -123,3 +123,13 @@ int main() {
         std::unordered_set<std::string> target_ids;
         target_ids.insert(home_statistics_id);
         getAllNodeIds(statistics_node, target_ids);
+        
+        // Подсчет обращений
+        int count = 0;
+        for (const auto& node_id : logs) {
+            if (target_ids.find(node_id) != target_ids.end()) {
+                count++;
+            }
+        }
+        
+        std::cout << "Количество обращений к /home/statistics и подузлам: " << count << std::endl;
