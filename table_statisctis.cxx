@@ -113,3 +113,8 @@ int main() {
         
         //Находим узел /home/statistics
         const YAML::Node statistics_node = findStatisticsNode(folders, home_statistics_id);
+
+        if (!statistics_node.IsDefined()) {
+            std::cout << "Узел 'statistics' не найден в структуре." << std::endl;
+            return 1;
+        }
