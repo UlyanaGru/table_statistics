@@ -49,4 +49,4 @@ node_id,timestamp,other_data\
 
 - [x] [Python](https://github.com/UlyanaGru/table_statistics/blob/master/table_statistics.py)
 - [x] [Java](https://github.com/UlyanaGru/table_statistics/blob/master/table_statistics.java)
-- [ ] [C++](https://github.com/UlyanaGru/table_statistics/blob/master/table_statisctis.cxx)
+- [x] [C++](https://github.com/UlyanaGru/table_statistics/blob/master/table_statisctis.cxx)
